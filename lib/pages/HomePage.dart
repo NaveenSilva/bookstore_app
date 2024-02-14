@@ -1,4 +1,6 @@
-import 'package:bookstore_app/pages/ProfilePage.dart';
+// ignore_for_file: unused_import, unused_local_variable, file_names, prefer_const_constructors_in_immutables
+
+import 'package:bookstore_app/pages/profile_page.dart';
 import 'package:bookstore_app/pages/books_page.dart';
 import 'package:bookstore_app/pages/cart_page.dart';
 import 'package:bookstore_app/pages/home_page.dart';
@@ -15,11 +17,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedItem = 0;
   final tab = [
-    home_page(),
-    BooksPage(),
-    CartPage(),
-    ProfilePage(),
-    Center(
+    const home_page(),
+    const BooksPage(),
+    const CartPage(),
+    const ProfilePage(),
+    const Center(
       child: Text("asd"),
     )
   ];
