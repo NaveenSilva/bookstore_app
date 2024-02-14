@@ -5,6 +5,29 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 60),
+            child: Center(
+              child: Text(
+                "My Cart",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: size.height * 0.04,
+          ),
+          Container(
+            height: size.height * 0.2,
+            width: size.width * 0.9,
+            color: Colors.amber,
+          )
+        ],
+      ),
+    );
   }
 }

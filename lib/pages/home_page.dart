@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 
 class home_page extends StatelessWidget {
@@ -6,7 +8,7 @@ class home_page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(top: 20, left: 10),
+        padding: const EdgeInsets.only(top: 20, left: 10),
         child: ListView(
           scrollDirection: Axis.vertical,
           children: [
@@ -38,17 +40,17 @@ class home_page extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20, left: 20),
-              child: Container(
+              child: SizedBox(
                 height: 220,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
                     Container(height: 200, width: 150, color: Colors.amber),
-                    Padding(padding: EdgeInsets.only(left: 20)),
+                    const Padding(padding: EdgeInsets.only(left: 20)),
                     Container(height: 200, width: 150, color: Colors.red),
-                    Padding(padding: EdgeInsets.only(left: 20)),
+                    const Padding(padding: EdgeInsets.only(left: 20)),
                     Container(height: 200, width: 150, color: Colors.amber),
-                    Padding(padding: EdgeInsets.only(left: 20)),
+                    const Padding(padding: EdgeInsets.only(left: 20)),
                     Container(height: 200, width: 150, color: Colors.amber),
                   ],
                 ),
@@ -85,17 +87,17 @@ class home_page extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20, left: 20),
-              child: Container(
+              child: SizedBox(
                 height: 220,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
                     Container(height: 200, width: 150, color: Colors.amber),
-                    Padding(padding: EdgeInsets.only(left: 20)),
+                    const Padding(padding: EdgeInsets.only(left: 20)),
                     Container(height: 200, width: 150, color: Colors.red),
-                    Padding(padding: EdgeInsets.only(left: 20)),
+                    const Padding(padding: EdgeInsets.only(left: 20)),
                     Container(height: 200, width: 150, color: Colors.amber),
-                    Padding(padding: EdgeInsets.only(left: 20)),
+                    const Padding(padding: EdgeInsets.only(left: 20)),
                     Container(height: 200, width: 150, color: Colors.amber),
                   ],
                 ),
@@ -109,7 +111,7 @@ class home_page extends StatelessWidget {
                     flex: 3,
                     child: Padding(
                       padding: EdgeInsets.only(left: 20),
-                      child: Text("Science Fiction",
+                      child: Text("Horror",
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold)),
                     ),
@@ -132,17 +134,17 @@ class home_page extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20, left: 20),
-              child: Container(
+              child: SizedBox(
                 height: 220,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
                     Container(height: 200, width: 150, color: Colors.amber),
-                    Padding(padding: EdgeInsets.only(left: 20)),
+                    const Padding(padding: EdgeInsets.only(left: 20)),
                     Container(height: 200, width: 150, color: Colors.red),
-                    Padding(padding: EdgeInsets.only(left: 20)),
+                    const Padding(padding: EdgeInsets.only(left: 20)),
                     Container(height: 200, width: 150, color: Colors.amber),
-                    Padding(padding: EdgeInsets.only(left: 20)),
+                    const Padding(padding: EdgeInsets.only(left: 20)),
                     Container(height: 200, width: 150, color: Colors.amber),
                   ],
                 ),

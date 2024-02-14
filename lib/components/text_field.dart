@@ -1,15 +1,24 @@
+// ignore_for_file: camel_case_types, unnecessary_string_interpolations
+
 import 'package:flutter/material.dart';
 
 class myTextField extends StatelessWidget {
+  final TextEditingController textcontroller;
   final String hint;
-  const myTextField({super.key, required this.hint});
+  final bool obscuretext;
+  const myTextField(
+      {super.key,
+      required this.hint,
+      required this.obscuretext,
+      required this.textcontroller});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: TextField(
-        obscureText: false,
+        controller: textcontroller,
+        obscureText: obscuretext,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
