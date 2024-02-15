@@ -1,3 +1,4 @@
+import 'package:bookstore_app/controller/book_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -92,9 +93,15 @@ class _BookPageState extends State<BookPage> {
                 ],
               ),
             ),
-            ListView.builder(
+            GridView.builder(
               shrinkWrap: true,
               itemCount: books.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, 
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.54,
+              ),
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 return isLoading
@@ -112,11 +119,11 @@ class _BookPageState extends State<BookPage> {
                         : Column(
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 8.0, top: 10),
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, top: 10, right: 1),
                                 child: Container(
-                                  width: size.width * 0.65,
-                                  height: size.height * 0.365,
+                                  width: size.width * 0.6,
+                                  height: size.height * 0.4,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: const Color.fromARGB(
@@ -129,18 +136,14 @@ class _BookPageState extends State<BookPage> {
                                         child: Text("Image"),
                                       ),
                                       Expanded(
-                                        flex: 2,
+                                        flex: 3,
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               left: 8.0, right: 8),
                                           child: Column(
                                             children: [
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'Title: ${books[index].title}',
-                                                  ),
-                                                ],
+                                              Text(
+                                                'Title: ${books[index].title}',
                                               ),
                                               Row(
                                                 children: [
@@ -159,6 +162,7 @@ class _BookPageState extends State<BookPage> {
                                               Text(
                                                 'Description: ${books[index].description}',
                                               ),
+                                              SizedBox(height: 10),
                                               Row(
                                                 children: [
                                                   Text(
@@ -170,7 +174,23 @@ class _BookPageState extends State<BookPage> {
                                                 padding: EdgeInsets.only(
                                                     top: size.height * 0.04),
                                                 child: ElevatedButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    if (index >= 0 &&
+                                                        index < books.length) {
+                                                      int price = int.parse(
+                                                          '${books[index].price}');
+                                                      BookController()
+                                                          .addToCart(
+                                                        docId: '',
+                                                        title:
+                                                            books[index].title,
+                                                        price: price,
+                                                      );
+                                                    } else {
+                                                      print(
+                                                          'Invalid index: $index');
+                                                    }
+                                                  },
                                                   style: ButtonStyle(
                                                     shape:
                                                         MaterialStatePropertyAll(
