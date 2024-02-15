@@ -1,21 +1,21 @@
 // ignore_for_file: unused_local_variable, file_names, camel_case_types, avoid_print
 
 import 'package:bookstore_app/firebase_auth/fireabse_auth_services.dart';
-import 'package:bookstore_app/pages/HomePage.dart';
 import 'package:bookstore_app/pages/create_user_page.dart';
+import 'package:bookstore_app/pages/landing_page.dart';
 import 'package:bookstore_app/components/text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class logInPage extends StatefulWidget {
-  const logInPage({super.key});
+class LogInPage extends StatefulWidget {
+  const LogInPage({super.key});
 
   @override
-  State<logInPage> createState() => _logInPageState();
+  State<LogInPage> createState() => _LogInPageState();
 }
 
-class _logInPageState extends State<logInPage> {
+class _LogInPageState extends State<LogInPage> {
   final FirebaseAuthSeervices auth = FirebaseAuthSeervices();
 
   TextEditingController emailController = TextEditingController();
@@ -44,12 +44,12 @@ class _logInPageState extends State<logInPage> {
         SizedBox(
           height: size.height * 0.03,
         ),
-        myTextField(
+        MyTextField(
           hint: 'email',
           obscuretext: false,
           textcontroller: emailController,
         ),
-        myTextField(
+        MyTextField(
           hint: 'passowrd',
           obscuretext: true,
           textcontroller: passwordController,
@@ -80,7 +80,7 @@ class _logInPageState extends State<logInPage> {
             children: [
               GestureDetector(
                   onTap: () {
-                    Get.to(const create_user_page(),
+                    Get.to(const CreateUserPage(),
                         transition: Transition.leftToRight);
                   },
                   child: const Text("If you don't have an account",
@@ -101,7 +101,7 @@ class _logInPageState extends State<logInPage> {
     User? user = await auth.signInWithEmailAndPassword(email, password);
     if (user != null) {
       print("user is Successfully log in");
-      Get.to(HomePage(), transition: Transition.rightToLeft);
+      Get.to(LandingPage(), transition: Transition.rightToLeft);
     } else {
       AlertDialog(
           title: const Text("Some Error "),

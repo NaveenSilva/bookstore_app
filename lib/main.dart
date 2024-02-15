@@ -1,11 +1,11 @@
 // ignore_for_file: unused_import
 
-import 'package:bookstore_app/pages/HomePage.dart';
+import 'package:bookstore_app/pages/landing_page.dart';
+import 'package:bookstore_app/pages/books_page.dart';
 import 'package:bookstore_app/pages/create_user_page.dart';
 import 'package:bookstore_app/pages/profile_page.dart';
-import 'package:bookstore_app/pages/books_page.dart';
 import 'package:bookstore_app/pages/cart_page.dart';
-import 'package:bookstore_app/pages/logInPage.dart';
+import 'package:bookstore_app/pages/logIn_page.dart';
 import 'package:bookstore_app/pages/spash_screen_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:bookstore_app/firebase_options.dart';
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: SpashScreen(),
+      home: BookPage(),
     );
   }
 }

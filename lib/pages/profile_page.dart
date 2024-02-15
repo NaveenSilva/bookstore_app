@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
 
-import 'package:bookstore_app/pages/logInPage.dart';
+import 'package:bookstore_app/pages/logIn_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,7 +49,7 @@ class ProfilePage extends StatelessWidget {
                       ElevatedButton(
                           onPressed: () {
                             FirebaseAuth.instance.signOut();
-                            Get.off(logInPage());
+                            Get.off(LogInPage());
                           },
                           child: const Text("Log Out")),
                     ],

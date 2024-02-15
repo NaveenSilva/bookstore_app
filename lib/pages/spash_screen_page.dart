@@ -1,4 +1,4 @@
-import 'package:bookstore_app/pages/logInPage.dart';
+import 'package:bookstore_app/pages/logIn_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +13,7 @@ class _SpashScreenState extends State<SpashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 4), () {
-      Get.off(const logInPage(), transition: Transition.leftToRight);
+      Get.off(const LogInPage(), transition: Transition.leftToRight);
     });
     super.initState();
   }
