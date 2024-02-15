@@ -1,24 +1,24 @@
 // ignore_for_file: unused_import, unused_local_variable, file_names, prefer_const_constructors_in_immutables
 
+import 'package:bookstore_app/pages/home_page.dart';
 import 'package:bookstore_app/pages/profile_page.dart';
 import 'package:bookstore_app/pages/books_page.dart';
 import 'package:bookstore_app/pages/cart_page.dart';
-import 'package:bookstore_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
+class LandingPage extends StatefulWidget {
+  LandingPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<LandingPage> createState() => _LandingPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _LandingPageState extends State<LandingPage> {
   int selectedItem = 0;
   final tab = [
-    const home_page(),
-    const BooksPage(),
+    const HomePage(),
+    const BookPage(),
     const CartPage(),
     const ProfilePage(),
     const Center(

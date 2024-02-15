@@ -2,20 +2,20 @@
 
 import 'package:bookstore_app/components/text_field.dart';
 import 'package:bookstore_app/firebase_auth/fireabse_auth_services.dart';
-import 'package:bookstore_app/pages/HomePage.dart';
-import 'package:bookstore_app/pages/logInPage.dart';
+import 'package:bookstore_app/pages/landing_page.dart';
+import 'package:bookstore_app/pages/logIn_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class create_user_page extends StatefulWidget {
-  const create_user_page({super.key});
+class CreateUserPage extends StatefulWidget {
+  const CreateUserPage({super.key});
 
   @override
-  State<create_user_page> createState() => _create_user_pageState();
+  State<CreateUserPage> createState() => _CreateUserPageState();
 }
 
-class _create_user_pageState extends State<create_user_page> {
+class _CreateUserPageState extends State<CreateUserPage> {
   final FirebaseAuthSeervices auth = FirebaseAuthSeervices();
 
   TextEditingController userNameController = TextEditingController();
@@ -45,15 +45,15 @@ class _create_user_pageState extends State<create_user_page> {
             const SizedBox(
               height: 15,
             ),
-            myTextField(
+            MyTextField(
                 hint: "User Name",
                 obscuretext: false,
                 textcontroller: userNameController),
-            myTextField(
+            MyTextField(
                 hint: "Email",
                 obscuretext: false,
                 textcontroller: emailController),
-            myTextField(
+            MyTextField(
                 hint: "Password",
                 obscuretext: true,
                 textcontroller: passwordController),
@@ -108,7 +108,7 @@ class _create_user_pageState extends State<create_user_page> {
 
     if (user != null) {
       print("user is Successfully cerated");
-      Get.to(HomePage(), transition: Transition.rightToLeft);
+      Get.to(LandingPage(), transition: Transition.rightToLeft);
     } else {
       AlertDialog(
           title: const Text("Some Error Occured"),
