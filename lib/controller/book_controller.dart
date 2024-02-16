@@ -35,8 +35,10 @@ class BookController extends GetxController {
     if (cart.isNotEmpty) {
       int currentQuantity =
           cart.firstWhere((item) => item.docId == docId).quantity ?? 0;
+
       currentQuantity++;
       updateQuantity(docId, currentQuantity);
+      update();
     }
   }
 
@@ -47,6 +49,7 @@ class BookController extends GetxController {
       if (currentQuantity > 1) {
         currentQuantity--;
         updateQuantity(docId, currentQuantity);
+        update();
       }
     }
   }

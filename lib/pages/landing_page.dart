@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import, unused_local_variable, file_names, prefer_const_constructors_in_immutables
 
+import 'package:bookstore_app/pages/history_page.dart';
 import 'package:bookstore_app/pages/home_page.dart';
 import 'package:bookstore_app/pages/profile_page.dart';
 import 'package:bookstore_app/pages/books_page.dart';
@@ -21,9 +22,7 @@ class _LandingPageState extends State<LandingPage> {
     const BookPage(),
     const CartPage(),
     const ProfilePage(),
-    const Center(
-      child: Text("asd"),
-    )
+    const HistoryPage(),
   ];
 
   @override
