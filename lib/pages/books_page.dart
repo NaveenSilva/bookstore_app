@@ -34,6 +34,7 @@ class _BookPageState extends State<BookPage> {
           author: doc.get("author"),
           category: doc.get("category"),
           description: doc.get("Description"),
+          image: doc.get("image"),
           price: doc.get("price"),
           year: doc.get("year"),
         );
@@ -97,7 +98,7 @@ class _BookPageState extends State<BookPage> {
               shrinkWrap: true,
               itemCount: books.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, 
+                crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 childAspectRatio: 0.54,
@@ -131,9 +132,17 @@ class _BookPageState extends State<BookPage> {
                                   ),
                                   child: Column(
                                     children: [
-                                      const Expanded(
+                                      Expanded(
                                         flex: 1,
-                                        child: Text("Image"),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 8),
+                                          child: Image.network(
+                                            books[index].image,
+                                            width: size.width * 0.4,
+                                            height: size.height * 0.5,
+                                          ),
+                                        ),
                                       ),
                                       Expanded(
                                         flex: 3,
@@ -229,6 +238,7 @@ class Module {
   final String author;
   final String category;
   final String description;
+  final String image;
   final int year;
   final int price;
 
@@ -237,6 +247,7 @@ class Module {
     required this.author,
     required this.category,
     required this.description,
+    required this.image,
     required this.year,
     required this.price,
   });

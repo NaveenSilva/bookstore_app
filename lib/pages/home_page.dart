@@ -8,17 +8,68 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(top: 20, left: 10),
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: [
-            Row(
+      padding: const EdgeInsets.only(top: 20, left: 10),
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        children: [
+          Row(
+            children: [
+              const Expanded(
+                flex: 4,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Text(
+                    "Mystery",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    "See More",
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const Divider(
+            color: Colors.grey,
+            thickness: 2,
+            height: 1,
+            indent: 20,
+            endIndent: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 20),
+            child: SizedBox(
+              height: 220,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  Container(height: 200, width: 150, color: Colors.amber),
+                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  Container(height: 200, width: 150, color: Colors.red),
+                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  Container(height: 200, width: 150, color: Colors.amber),
+                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  Container(height: 200, width: 150, color: Colors.amber),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Row(
               children: [
                 const Expanded(
-                  flex: 4,
+                  flex: 3,
                   child: Padding(
                     padding: EdgeInsets.only(left: 20),
-                    child: Text("Mystery",
+                    child: Text("Science Fiction",
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold)),
                   ),
@@ -31,126 +82,91 @@ class HomePage extends StatelessWidget {
                             style: TextStyle(color: Colors.blue)))),
               ],
             ),
-            const Divider(
-              color: Colors.grey,
-              thickness: 2,
-              height: 1,
-              indent: 20,
-              endIndent: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, left: 20),
-              child: SizedBox(
-                height: 220,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Container(height: 200, width: 150, color: Colors.amber),
-                    const Padding(padding: EdgeInsets.only(left: 20)),
-                    Container(height: 200, width: 150, color: Colors.red),
-                    const Padding(padding: EdgeInsets.only(left: 20)),
-                    Container(height: 200, width: 150, color: Colors.amber),
-                    const Padding(padding: EdgeInsets.only(left: 20)),
-                    Container(height: 200, width: 150, color: Colors.amber),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Row(
+          ),
+          const Divider(
+            color: Colors.grey,
+            thickness: 2,
+            height: 1,
+            indent: 20,
+            endIndent: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 20),
+            child: SizedBox(
+              height: 220,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
                 children: [
-                  const Expanded(
-                    flex: 3,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text("Science Fiction",
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold)),
-                    ),
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: GestureDetector(
-                          onTap: () {},
-                          child: const Text("See More",
-                              style: TextStyle(color: Colors.blue)))),
+                  Container(height: 200, width: 150, color: Colors.amber),
+                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  Container(height: 200, width: 150, color: Colors.red),
+                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  Container(height: 200, width: 150, color: Colors.amber),
+                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  Container(height: 200, width: 150, color: Colors.amber),
                 ],
               ),
             ),
-            const Divider(
-              color: Colors.grey,
-              thickness: 2,
-              height: 1,
-              indent: 20,
-              endIndent: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, left: 20),
-              child: SizedBox(
-                height: 220,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Container(height: 200, width: 150, color: Colors.amber),
-                    const Padding(padding: EdgeInsets.only(left: 20)),
-                    Container(height: 200, width: 150, color: Colors.red),
-                    const Padding(padding: EdgeInsets.only(left: 20)),
-                    Container(height: 200, width: 150, color: Colors.amber),
-                    const Padding(padding: EdgeInsets.only(left: 20)),
-                    Container(height: 200, width: 150, color: Colors.amber),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Row(
-                children: [
-                  const Expanded(
-                    flex: 3,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text("Horror",
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold)),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Row(
+              children: [
+                const Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: Text(
+                      "Horror",
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  Expanded(
-                      flex: 1,
-                      child: GestureDetector(
-                          onTap: () {},
-                          child: const Text("See More",
-                              style: TextStyle(color: Colors.blue)))),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: const Text(
+                      "See More",
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(
+            color: Colors.grey,
+            thickness: 2,
+            height: 1,
+            indent: 20,
+            endIndent: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 20),
+            child: SizedBox(
+              height: 220,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  Container(height: 200, width: 150, color: Colors.amber),
+                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  Container(height: 200, width: 150, color: Colors.red),
+                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  Container(height: 200, width: 150, color: Colors.amber),
+                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  Container(height: 200, width: 150, color: Colors.amber),
                 ],
               ),
             ),
-            const Divider(
-              color: Colors.grey,
-              thickness: 2,
-              height: 1,
-              indent: 20,
-              endIndent: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, left: 20),
-              child: SizedBox(
-                height: 220,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Container(height: 200, width: 150, color: Colors.amber),
-                    const Padding(padding: EdgeInsets.only(left: 20)),
-                    Container(height: 200, width: 150, color: Colors.red),
-                    const Padding(padding: EdgeInsets.only(left: 20)),
-                    Container(height: 200, width: 150, color: Colors.amber),
-                    const Padding(padding: EdgeInsets.only(left: 20)),
-                    Container(height: 200, width: 150, color: Colors.amber),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }

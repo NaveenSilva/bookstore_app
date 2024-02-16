@@ -1,6 +1,7 @@
 import 'package:bookstore_app/controller/book_controller.dart';
 import 'package:bookstore_app/controller/cart_controller.dart';
 import 'package:bookstore_app/model/cart_model.dart';
+import 'package:bookstore_app/pages/payment_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -14,8 +15,10 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  int total = 0;
   @override
   Widget build(BuildContext context) {
+    final bookController = Get.put(BookController());
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Column(
@@ -34,7 +37,7 @@ class _CartPageState extends State<CartPage> {
           ),
           Expanded(
             child: StreamBuilder<List<CartModel>>(
-              stream: BookController().getAllItems(),
+              stream: bookController.getAllItems(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text('Error:${snapshot.error}');
@@ -42,6 +45,7 @@ class _CartPageState extends State<CartPage> {
                 if (!snapshot.hasData) {
                   return const CircularProgressIndicator();
                 }
+                
                 List<CartModel> cartItems = snapshot.data!;
 
                 return ListView.builder(
@@ -55,7 +59,7 @@ class _CartPageState extends State<CartPage> {
                         label: 'Delete',
                         onPressed: (context) => BookController()
                             .DismissedItem('${cartItems[index].docId}'),
-                      )
+                      ),
                     ]),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -86,13 +90,17 @@ class _CartPageState extends State<CartPage> {
                                       children: [
                                         Expanded(
                                           flex: 1,
-                                          child: IconButton(
-                                            icon: const Icon(
-                                                Icons.remove_circle_rounded),
-                                            onPressed: () {
-                                              BookController().decrementQuantity(
-                                                  '${cartItems[index].docId}');
-                                            },
+                                          child: Center(
+                                            child: IconButton(
+                                              icon: const Icon(
+                                                  Icons.remove_circle_rounded),
+                                              onPressed: () {
+                                                bookController
+                                                    .decrementQuantity(
+                                                  '${cartItems[index].docId}',
+                                                );
+                                              },
+                                            ),
                                           ),
                                         ),
                                         Expanded(
@@ -105,15 +113,17 @@ class _CartPageState extends State<CartPage> {
                                         ),
                                         Expanded(
                                           flex: 1,
-                                          child: IconButton(
-                                            icon: const Icon(
-                                                Icons.add_circle_rounded),
-                                            onPressed: () {
-                                              BookController()
-                                                  .incrementQuantity(
-                                                '${cartItems[index].docId}',
-                                              );
-                                            },
+                                          child: Center(
+                                            child: IconButton(
+                                              icon: const Icon(
+                                                  Icons.add_circle_rounded),
+                                              onPressed: () {
+                                                bookController
+                                                    .incrementQuantity(
+                                                  '${cartItems[index].docId}',
+                                                );
+                                              },
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -130,7 +140,7 @@ class _CartPageState extends State<CartPage> {
                                   Expanded(
                                     flex: 1,
                                     child: Text(
-                                      '${cartItems[index].quantity! * cartItems[index].price!}',
+                                      '${total = cartItems[index].quantity! * cartItems[index].price!}',
                                     ),
                                   ),
                                 ],
@@ -147,6 +157,36 @@ class _CartPageState extends State<CartPage> {
                   ),
                 );
               },
+            ),
+          ),
+          Container(
+            color: const Color.fromARGB(255, 170, 184, 193).withOpacity(0.4),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      'Total:$total',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.to(PaymentPage(total: 2500));
+                      },
+                      child: const Text(
+                        "Buy",
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
