@@ -8,11 +8,15 @@ class BookController extends GetxController {
       firebaseFirestore.collection("/cart/bZWB6s1ZzOGNokT9kuuI/a1");
 
   RxList<CartModel> cart = RxList<CartModel>([]);
+  Map<String, int> quantityMap = {};
+
   @override
   void onInit() {
     super.onInit();
-
     cart.bindStream(getAllItems());
+    getAllItems().listen((items) {
+      //cart.assignAll(items);
+    });
   }
 
   void addToCart(
@@ -22,4 +26,32 @@ class BookController extends GetxController {
 
   Stream<List<CartModel>> getAllItems() => collectionReference.snapshots().map(
       (query) => query.docs.map((item) => CartModel.fromMap(item)).toList());
+
+  updateQuantity(String docId, int quantity) {
+    collectionReference.doc(docId).update({'quantity': quantity});
+  }
+
+  void incrementQuantity(String docId) {
+    if (cart.isNotEmpty) {
+      int currentQuantity =
+          cart.firstWhere((item) => item.docId == docId).quantity ?? 0;
+      currentQuantity++;
+      updateQuantity(docId, currentQuantity);
+    }
+  }
+
+  void decrementQuantity(String docId) {
+    if (cart.isNotEmpty) {
+      int currentQuantity =
+          cart.firstWhere((item) => item.docId == docId).quantity ?? 0;
+      if (currentQuantity > 1) {
+        currentQuantity--;
+        updateQuantity(docId, currentQuantity);
+      }
+    }
+  }
+
+  DismissedItem(String docId) {
+    collectionReference.doc(docId).delete();
+  }
 }
