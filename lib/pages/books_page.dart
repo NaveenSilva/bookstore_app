@@ -1,6 +1,7 @@
 import 'package:bookstore_app/controller/book_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bookstore_app/model/book_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class BookPage extends StatefulWidget {
   const BookPage({super.key});
@@ -10,245 +11,234 @@ class BookPage extends StatefulWidget {
 }
 
 class _BookPageState extends State<BookPage> {
-  final firestoreInstance = FirebaseFirestore.instance;
-  List<Module> books = [];
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    fetchModulesData();
-    super.initState();
-  }
-
-  Future<void> fetchModulesData() async {
-    try {
-      final bookCollection = await firestoreInstance
-          .collection("books")
-          .doc("category")
-          .collection("mystery")
-          .get();
-
-      List<Module> booksItem = bookCollection.docs.map((doc) {
-        return Module(
-          title: doc.get("Title"),
-          author: doc.get("author"),
-          category: doc.get("category"),
-          description: doc.get("Description"),
-          image: doc.get("image"),
-          price: doc.get("price"),
-          year: doc.get("year"),
-        );
-      }).toList();
-
-      books.addAll(booksItem);
-
-      setState(() {
-        isLoading = false;
-      });
-    } catch (e) {
-      print('Error fetching modules data!');
-    }
-  }
-
-  Future<void> _refreshData() async {
-    await fetchModulesData();
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: _refreshData,
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 10, top: 20, right: 20, bottom: 30),
-              child: Row(
-                children: [
-                  const Expanded(
-                    flex: 10,
-                    child: TextField(
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+        body: Padding(
+      padding: const EdgeInsets.only(top: 20, left: 10),
+      child: ListView(
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 10, top: 20, right: 20, bottom: 30),
+            child: Row(
+              children: [
+                const Expanded(
+                  flex: 10,
+                  child: TextField(
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      hintText: 'Search',
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: const Icon(Icons.search),
+                ),
+              ],
+            ),
+          ),
+          StreamBuilder<List<BookModel>>(
+            stream: BookController().getAllBooks(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('Error:${snapshot.error}');
+              }
+              if (!snapshot.hasData) {
+                return const CircularProgressIndicator();
+              }
+              List<BookModel> bookItems = snapshot.data!;
+              // BookController().getAllBooksHorror();
+              List<BookModel> bookItems1 = snapshot.data!;
+
+              // BookController().getAllBooksHisNov();
+              List<BookModel> bookItems2 = snapshot.data!;
+
+              return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: bookItems.length,
+                  itemBuilder: (context, index) => Slidable(
+                        startActionPane:
+                            ActionPane(motion: StretchMotion(), children: [
+                          SlidableAction(
+                            backgroundColor: Colors.green,
+                            icon: Icons.delete,
+                            label: 'Add To Cart',
+                            onPressed: (context) => BookController().addToCart(
+                                title: '${bookItems[index].title}',
+                                price: bookItems[index].price!,
+                                docId: '${bookItems[index].id}'),
+                          ),
+                        ]),
+                        child: Container(
+                          height: 200,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 50,
+                              child: Row(
+                                children: [
+                                  Image(
+                                    image: NetworkImage(
+                                      '${bookItems[index].image}',
+                                    ),
+                                    height: 150,
+                                    width: 150,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('Title:${bookItems[index].title}'),
+                                      Text('Author:${bookItems[index].author}'),
+                                      Text(
+                                          'Category:${bookItems[index].category}'),
+                                      Text('Year:${bookItems[index].year}'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ));
+            },
+          ),
+          StreamBuilder<List<BookModel>>(
+            stream: BookController().getAllBooksHorror(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('Error:${snapshot.error}');
+              }
+              if (!snapshot.hasData) {
+                return const CircularProgressIndicator();
+              }
+              List<BookModel> bookItems1 = snapshot.data!;
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                itemCount: bookItems1.length,
+                itemBuilder: (context, index) => Slidable(
+                  startActionPane:
+                      ActionPane(motion: StretchMotion(), children: [
+                    SlidableAction(
+                      backgroundColor: Colors.green,
+                      icon: Icons.delete,
+                      label: 'Add To Cart',
+                      onPressed: (context) => BookController().addToCart(
+                          title: '${bookItems1[index].title}',
+                          price: bookItems1[index].price!,
+                          docId: '${bookItems1[index].id}'),
+                    ),
+                  ]),
+                  child: Container(
+                    height: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 50,
+                        child: Row(
+                          children: [
+                            Image(
+                              image: NetworkImage(
+                                '${bookItems1[index].image}',
+                              ),
+                              height: 150,
+                              width: 150,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('Title:${bookItems1[index].title}'),
+                                Text('Author:${bookItems1[index].author}'),
+                                Text('Category:${bookItems1[index].category}'),
+                                Text('Year:${bookItems1[index].year}'),
+                              ],
+                            ),
+                          ],
                         ),
-                        hintText: 'Search',
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: const Icon(Icons.search),
-                  ),
-                ],
-              ),
-            ),
-            GridView.builder(
-              shrinkWrap: true,
-              itemCount: books.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 0.54,
-              ),
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return isLoading
-                    ? const Padding(
-                        padding: EdgeInsets.only(top: 100),
-                        child: Center(child: CircularProgressIndicator()),
-                      )
-                    : books.isEmpty
-                        ? const Padding(
-                            padding: EdgeInsets.only(top: 100),
-                            child: Center(
-                              child: Text("No Data available"),
+                ),
+              );
+            },
+          ),
+          StreamBuilder<List<BookModel>>(
+            stream: BookController().getAllBooksHisNov(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('Error:${snapshot.error}');
+              }
+              if (!snapshot.hasData) {
+                return const CircularProgressIndicator();
+              }
+              List<BookModel> bookItems2 = snapshot.data!;
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                itemCount: bookItems2.length,
+                itemBuilder: (context, index) => Slidable(
+                  startActionPane:
+                      ActionPane(motion: StretchMotion(), children: [
+                    SlidableAction(
+                      backgroundColor: Colors.green,
+                      icon: Icons.delete,
+                      label: 'Add To Cart',
+                      onPressed: (context) => BookController().addToCart(
+                          title: '${bookItems2[index].title}',
+                          price: bookItems2[index].price!,
+                          docId: '${bookItems2[index].id}'),
+                    ),
+                  ]),
+                  child: Container(
+                    height: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Image(
+                            image: NetworkImage(
+                              '${bookItems2[index].image}',
                             ),
-                          )
-                        : Column(
+                            height: 150,
+                            width: 150,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0, top: 10, right: 1),
-                                child: Container(
-                                  width: size.width * 0.6,
-                                  height: size.height * 0.4,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: const Color.fromARGB(
-                                        255, 216, 215, 215),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8),
-                                          child: Image.network(
-                                            books[index].image,
-                                            width: size.width * 0.4,
-                                            height: size.height * 0.5,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 3,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, right: 8),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                'Title: ${books[index].title}',
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'Author: ${books[index].author}',
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'Published Year: ${books[index].year.toString()}',
-                                                  ),
-                                                ],
-                                              ),
-                                              Text(
-                                                'Description: ${books[index].description}',
-                                              ),
-                                              SizedBox(height: 10),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    'price : ${books[index].price.toString()}',
-                                                  ),
-                                                ],
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: size.height * 0.04),
-                                                child: ElevatedButton(
-                                                  onPressed: () {
-                                                    if (index >= 0 &&
-                                                        index < books.length) {
-                                                      int price = int.parse(
-                                                          '${books[index].price}');
-                                                      BookController()
-                                                          .addToCart(
-                                                        docId: '',
-                                                        title:
-                                                            books[index].title,
-                                                        price: price,
-                                                      );
-                                                    } else {
-                                                      print(
-                                                          'Invalid index: $index');
-                                                    }
-                                                  },
-                                                  style: ButtonStyle(
-                                                    shape:
-                                                        MaterialStatePropertyAll(
-                                                      RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  child:
-                                                      const Text("Add to Cart"),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              Text('Title:${bookItems2[index].title}'),
+                              Text('Author:${bookItems2[index].author}'),
+                              Text('Category:${bookItems2[index].category}'),
+                              Text('Year:${bookItems2[index].year}'),
                             ],
-                          );
-              },
-            ),
-          ],
-        ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
-    );
+    ));
   }
-}
-
-class Module {
-  final String title;
-  final String author;
-  final String category;
-  final String description;
-  final String image;
-  final int year;
-  final int price;
-
-  Module({
-    required this.title,
-    required this.author,
-    required this.category,
-    required this.description,
-    required this.image,
-    required this.year,
-    required this.price,
-  });
 }

@@ -15,11 +15,13 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  int total = 0;
+  //int total = 0;
   @override
   Widget build(BuildContext context) {
+
     final bookController = Get.put(BookController());
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Column(
         children: [
@@ -45,7 +47,7 @@ class _CartPageState extends State<CartPage> {
                 if (!snapshot.hasData) {
                   return const CircularProgressIndicator();
                 }
-                
+
                 List<CartModel> cartItems = snapshot.data!;
 
                 return ListView.builder(
@@ -140,7 +142,7 @@ class _CartPageState extends State<CartPage> {
                                   Expanded(
                                     flex: 1,
                                     child: Text(
-                                      '${total = cartItems[index].quantity! * cartItems[index].price!}',
+                                      '${cartItems[index].quantity! * cartItems[index].price!}',
                                     ),
                                   ),
                                 ],
@@ -168,7 +170,7 @@ class _CartPageState extends State<CartPage> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
-                      'Total:$total',
+                      "Total:",
                       style: TextStyle(fontSize: 25),
                     ),
                   ),

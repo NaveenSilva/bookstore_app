@@ -1,3 +1,4 @@
+import 'package:bookstore_app/model/book_model.dart';
 import 'package:bookstore_app/model/cart_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -6,14 +7,23 @@ class BookController extends GetxController {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   late CollectionReference collectionReference =
       firebaseFirestore.collection("/cart/bZWB6s1ZzOGNokT9kuuI/a1");
+  late CollectionReference collectionReference1 =
+      firebaseFirestore.collection("/books/category/mystery");
+  late CollectionReference collectionReference2 =
+      firebaseFirestore.collection("/books/category/horror");
+  late CollectionReference collectionReference3 =
+      firebaseFirestore.collection("/books/category/historical novels");
 
   RxList<CartModel> cart = RxList<CartModel>([]);
+  RxList<BookModel> book = RxList<BookModel>([]);
+
   Map<String, int> quantityMap = {};
 
   @override
   void onInit() {
     super.onInit();
     cart.bindStream(getAllItems());
+    book.bindStream(getAllBooks());
     getAllItems().listen((items) {
       //cart.assignAll(items);
     });
@@ -26,6 +36,17 @@ class BookController extends GetxController {
 
   Stream<List<CartModel>> getAllItems() => collectionReference.snapshots().map(
       (query) => query.docs.map((item) => CartModel.fromMap(item)).toList());
+
+  Stream<List<BookModel>> getAllBooks() => collectionReference1.snapshots().map(
+      (query) => query.docs.map((item) => BookModel.fromMap(item)).toList());
+
+  Stream<List<BookModel>> getAllBooksHorror() =>
+      collectionReference2.snapshots().map((query) =>
+          query.docs.map((item) => BookModel.fromMap(item)).toList());
+
+  Stream<List<BookModel>> getAllBooksHisNov() =>
+      collectionReference3.snapshots().map((query) =>
+          query.docs.map((item) => BookModel.fromMap(item)).toList());
 
   updateQuantity(String docId, int quantity) {
     collectionReference.doc(docId).update({'quantity': quantity});
