@@ -17,7 +17,7 @@ class BookController extends GetxController {
   RxList<CartModel> cart = RxList<CartModel>([]);
   RxList<BookModel> book = RxList<BookModel>([]);
 
-  Map<String, int> quantityMap = {};
+ // Map<String, int> quantityMap = {};
 
   @override
   void onInit() {

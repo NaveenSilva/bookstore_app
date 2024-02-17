@@ -1,7 +1,7 @@
 // ignore_for_file: unused_local_variable, file_names, camel_case_types, avoid_print
 
 import 'package:bookstore_app/firebase_auth/fireabse_auth_services.dart';
-import 'package:bookstore_app/pages/create_user_page.dart';
+import 'package:bookstore_app/pages/signup_page.dart';
 import 'package:bookstore_app/pages/landing_page.dart';
 import 'package:bookstore_app/components/text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';

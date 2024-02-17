@@ -3,7 +3,7 @@
 import 'package:bookstore_app/pages/home_page.dart';
 import 'package:bookstore_app/pages/landing_page.dart';
 import 'package:bookstore_app/pages/books_page.dart';
-import 'package:bookstore_app/pages/create_user_page.dart';
+import 'package:bookstore_app/pages/signup_page.dart';
 import 'package:bookstore_app/pages/profile_page.dart';
 import 'package:bookstore_app/pages/cart_page.dart';
 import 'package:bookstore_app/pages/logIn_page.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: LandingPage(),
+      home: CreateUserPage(),
     );
   }
 }
