@@ -61,11 +61,6 @@ class _BookPageState extends State<BookPage> {
                 return const CircularProgressIndicator();
               }
               List<BookModel> bookItems = snapshot.data!;
-              // BookController().getAllBooksHorror();
-              List<BookModel> bookItems1 = snapshot.data!;
-
-              // BookController().getAllBooksHisNov();
-              List<BookModel> bookItems2 = snapshot.data!;
 
               return ListView.builder(
                   shrinkWrap: true,
