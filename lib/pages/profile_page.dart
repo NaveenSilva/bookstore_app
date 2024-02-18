@@ -66,13 +66,6 @@ class ProfilePage extends StatelessWidget {
                                       child: Center(
                                         child: Text(
                                           '${users[index].uname}',
-                                          //'${user?.email}',
-                                          //'${Name}'
-                                          //currentUser?.uname ?? "Unknown",
-                                          //"asd",
-                                          // users.isNotEmpty
-                                          //     ? users[0].uname ?? "Unknown"
-                                          //     : "Unknown",
                                         ),
                                       ),
                                     ),
@@ -94,8 +87,6 @@ class ProfilePage extends StatelessWidget {
                                       child: Center(
                                         child: Text(
                                           "${users[index].email}",
-                                          // '${users.isNotEmpty ? users[1].email ?? "Unknown" : "Unknown"}',
-                                          //'${user?.displayName ?? 'Unknown'}',
                                         ),
                                       ),
                                     ),
