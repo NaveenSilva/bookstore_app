@@ -20,7 +20,6 @@ class UserController extends GetxController {
     user.bindStream(getAllUsers());
   }
 
-
   Stream<List<UserModel>> getAllUsers() {
     String? userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId != null) {
