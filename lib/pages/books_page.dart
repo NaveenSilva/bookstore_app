@@ -23,10 +23,10 @@ class _BookPageState extends State<BookPage> {
     super.initState();
     searchController.addListener(onSearchChanged);
     getBookStream();
+    // BookController().calculateTotal();
   }
 
   onSearchChanged() {
-    print(searchController.text);
     searchResultList();
   }
 
@@ -98,15 +98,16 @@ class _BookPageState extends State<BookPage> {
               motion: StretchMotion(),
               children: [
                 SlidableAction(
-                  backgroundColor: Colors.green,
-                  icon: Icons.delete,
-                  label: 'Add To Cart',
-                  onPressed: (context) => BookController().addToCart(
-                    title: resultList[index]['Title'],
-                    price: resultList[index]['price'],
-                    //docId: resultList[index]['docid'].toString(),
-                  ),
-                )
+                    backgroundColor: Colors.green,
+                    icon: Icons.delete,
+                    label: 'Add To Cart',
+                    onPressed: (context) {
+                      BookController().addToCart(
+                        title: resultList[index]['Title'],
+                        price: resultList[index]['price'],
+                        //docId: resultList[index]['docid'].toString(),
+                      );
+                    })
               ],
             ),
             child: Container(
@@ -143,6 +144,4 @@ class _BookPageState extends State<BookPage> {
       ),
     );
   }
-
-  
 }

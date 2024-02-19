@@ -9,4 +9,5 @@ class CartController extends GetxController {
 
   // void addToCart({String? docId, required total, required String,required int price}) {
   // collectionReference4.add({'Title': title, 'price': price, 'quantity': 1});}
+  
 }
