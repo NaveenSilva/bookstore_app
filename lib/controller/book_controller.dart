@@ -14,7 +14,6 @@ class BookController extends GetxController {
   late CollectionReference collectionReference3 =
       firebaseFirestore.collection("/books/category/historical novels");
 
-  // Stream<QuerySnapshot<Map<String, dynamic>>> fire=FirebaseFirestore.instance.collection("/books/category/historical novels").snapshots();
 
   RxList<CartModel> cart = RxList<CartModel>([]);
   RxList<BookModel> book = RxList<BookModel>([]);
@@ -24,14 +23,12 @@ class BookController extends GetxController {
     super.onInit();
     cart.bindStream(getAllItems());
     book.bindStream(getAllBooks());
-    getAllItems().listen((items) {
-      //cart.assignAll(items);
-    });
+    getAllItems().listen((items) {});
   }
 
-  void addToCart(
-      {String? docId, required String title, required int price}) {
+  void addToCart({String? docId, required String title, required int price}) {
     collectionReference.add({'Title': title, 'price': price, 'quantity': 1});
+    
   }
 
   Stream<List<CartModel>> getAllItems() => collectionReference.snapshots().map(
@@ -77,17 +74,5 @@ class BookController extends GetxController {
 
   DismissedItem(String docId) {
     collectionReference.doc(docId).delete();
-  }
-
-  Stream<List<BookModel>> GetSearch(String searchText) {
-    if (searchText != null) {
-      return collectionReference1
-         // .where('Title', isEqualTo: "Rebecca")
-          .snapshots()
-          .map((query) =>
-              query.docs.map((item) => BookModel.fromMap(item)).toList());
-    } else {
-      return Stream.value([]);
-    }
   }
 }

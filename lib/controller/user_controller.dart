@@ -7,8 +7,6 @@ class UserController extends GetxController {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   User? users = FirebaseAuth.instance.currentUser;
 
-  // late CollectionReference collectionReference2 =
-  //     firebaseFirestore.collection("/users/7FYDQESzTr6fJ2lFw26w");
   late CollectionReference collectionReference1 =
       firebaseFirestore.collection("/users");
 
@@ -46,7 +44,9 @@ class UserController extends GetxController {
         'id': id,
       });
     } catch (e) {
-      print('Failed to upload username: $e');
+      print(
+        'Failed to upload username: $e',
+      );
     }
   }
 }

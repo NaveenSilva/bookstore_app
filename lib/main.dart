@@ -3,7 +3,7 @@
 import 'package:bookstore_app/pages/home_page.dart';
 import 'package:bookstore_app/pages/landing_page.dart';
 import 'package:bookstore_app/pages/books_page.dart';
-import 'package:bookstore_app/pages/signup_page.dart';
+import 'package:bookstore_app/pages/signin_page.dart';
 import 'package:bookstore_app/pages/profile_page.dart';
 import 'package:bookstore_app/pages/cart_page.dart';
 import 'package:bookstore_app/pages/logIn_page.dart';
@@ -25,9 +25,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.purple,
+      ),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: LandingPage(),
+      home: LogInPage(),
     );
   }
 }

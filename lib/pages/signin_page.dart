@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, camel_case_types, avoid_unnecessary_containers, unused_local_variable, avoid_print
+// ignore_for_file: unused_import, camel_case_types, avoid_unnecessary_containers, unused_local_variable, avoid_print, use_build_context_synchronously
 
 import 'package:bookstore_app/components/text_field.dart';
 import 'package:bookstore_app/controller/user_controller.dart';
@@ -68,7 +68,11 @@ class _CreateUserPageState extends State<CreateUserPage> {
               textcontroller: passwordController,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(
+                left: size.width * 0.02,
+                top: size.width * 0.02,
+                right: size.width * 0.02,
+              ),
               child: Row(
                 children: [
                   Expanded(
@@ -96,23 +100,28 @@ class _CreateUserPageState extends State<CreateUserPage> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 8.0),
               child: Row(
                 children: [
                   GestureDetector(
                     onTap: () {
                       Get.back();
                     },
-                    child: const Text(
-                      "If you have an account",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline,
-                      ),
+                    child: const Row(
+                      children: [
+                        Text("If you have an account"),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "Sign in",
+                          style: TextStyle(
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -126,7 +135,7 @@ class _CreateUserPageState extends State<CreateUserPage> {
 
   void userRegister(String email, String password, String uname) async {
     User? user = await createUserWithEmailAndPassword(email, password);
-    DateTime date = DateTime.now();
+
     if (user != null) {
       UserController()
           .addUser(user: user, uname: uname, email: email, id: user.uid);
@@ -142,7 +151,46 @@ class _CreateUserPageState extends State<CreateUserPage> {
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       print('Failed to create user: ${e.message}');
-      return null;
+      if (6 > password.length) {
+        popupMessage("Password should be at least 6 characters", "");
+      }
     }
+
+    bool isEmailValid(String email) {
+      // Regular expression for a valid email address
+      final RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+      return emailRegex.hasMatch(email);
+    }
+
+    if (!isEmailValid(email)) {
+      popupMessage("Enter valid email", "");
+    }
+
+    return null;
+  }
+
+  Future<dynamic> popupMessage(String title, String content) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          title,
+        ),
+        content: Text(
+          content,
+        ),
+        contentPadding: EdgeInsets.all(10),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: const Text(
+              "close",
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

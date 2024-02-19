@@ -1,7 +1,7 @@
 // ignore_for_file: unused_local_variable, file_names, camel_case_types, avoid_print
 
 import 'package:bookstore_app/firebase_auth/fireabse_auth_services.dart';
-import 'package:bookstore_app/pages/signup_page.dart';
+import 'package:bookstore_app/pages/signin_page.dart';
 import 'package:bookstore_app/pages/landing_page.dart';
 import 'package:bookstore_app/components/text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,7 +55,7 @@ class _LogInPageState extends State<LogInPage> {
           textcontroller: passwordController,
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(left: 8.0, right: 8, top: 8),
           child: Row(
             children: [
               Expanded(
@@ -71,11 +71,8 @@ class _LogInPageState extends State<LogInPage> {
             ],
           ),
         ),
-        const SizedBox(
-          height: 30,
-        ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(left: 8),
           child: Row(
             children: [
               GestureDetector(
@@ -83,10 +80,18 @@ class _LogInPageState extends State<LogInPage> {
                     Get.to(const CreateUserPage(),
                         transition: Transition.leftToRight);
                   },
-                  child: const Text("If you don't have an account",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          decoration: TextDecoration.underline))),
+                  child: Row(
+                    children: [
+                      const Text("If you don't have an account"),
+                      SizedBox(
+                        width: size.width * 0.02,
+                      ),
+                      const Text("Sign up",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline)),
+                    ],
+                  )),
             ],
           ),
         )
@@ -103,16 +108,28 @@ class _LogInPageState extends State<LogInPage> {
       print("user is Successfully log in");
       Get.to(LandingPage(), transition: Transition.rightToLeft);
     } else {
-      AlertDialog(
-          title: const Text("Some Error "),
-          content: const Text("data"),
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text(
+            "Enter conrrect credentials",
+          ),
+          content: const Text(
+            "please, enter correct email and password",
+          ),
+          contentPadding: EdgeInsets.all(10),
           actions: [
             TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("close"))
-          ]);
+              onPressed: () {
+                Get.back();
+              },
+              child: const Text(
+                "close",
+              ),
+            ),
+          ],
+        ),
+      );
     }
   }
 }
