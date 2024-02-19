@@ -21,7 +21,7 @@ class _LandingPageState extends State<LandingPage> {
     const HomePage(),
     const BookPage(),
     const CartPage(),
-    const ProfilePage(),
+     ProfilePage(),
     const HistoryPage(),
   ];
 

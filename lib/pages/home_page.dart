@@ -68,20 +68,25 @@ class HomePage extends StatelessWidget {
                     itemCount: bookItems.length,
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 200,
-                        width: 150,
-                        child: Column(
-                          children: [
-                            Image(
-                              image: NetworkImage(
-                                '${bookItems[index].image}',
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(BookPage());
+                        },
+                        child: Container(
+                          height: 200,
+                          width: 150,
+                          child: Column(
+                            children: [
+                              Image(
+                                image: NetworkImage(
+                                  '${bookItems[index].image}',
+                                ),
+                                height: 150,
+                                width: 150,
                               ),
-                              height: 150,
-                              width: 150,
-                            ),
-                            Text('${bookItems[index].title}'),
-                          ],
+                              Text('${bookItems[index].title}'),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -150,20 +155,25 @@ class HomePage extends StatelessWidget {
                     itemCount: bookItems1.length,
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 200,
-                        width: 150,
-                        child: Column(
-                          children: [
-                            Image(
-                              image: NetworkImage(
-                                '${bookItems1[index].image}',
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(BookPage());
+                        },
+                        child: Container(
+                          height: 200,
+                          width: 150,
+                          child: Column(
+                            children: [
+                              Image(
+                                image: NetworkImage(
+                                  '${bookItems1[index].image}',
+                                ),
+                                height: 150,
+                                width: 150,
                               ),
-                              height: 150,
-                              width: 150,
-                            ),
-                            Text('${bookItems1[index].title}'),
-                          ],
+                              Text('${bookItems1[index].title}'),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -232,20 +242,25 @@ class HomePage extends StatelessWidget {
                     itemCount: bookItems.length,
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 200,
-                        width: 150,
-                        child: Column(
-                          children: [
-                            Image(
-                              image: NetworkImage(
-                                '${bookItems[index].image}',
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(BookPage());
+                        },
+                        child: Container(
+                          height: 200,
+                          width: 150,
+                          child: Column(
+                            children: [
+                              Image(
+                                image: NetworkImage(
+                                  '${bookItems[index].image}',
+                                ),
+                                height: 150,
+                                width: 150,
                               ),
-                              height: 150,
-                              width: 150,
-                            ),
-                            Text('${bookItems[index].title}'),
-                          ],
+                              Text('${bookItems[index].title}'),
+                            ],
+                          ),
                         ),
                       ),
                     ),
