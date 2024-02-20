@@ -23,7 +23,6 @@ class _BookPageState extends State<BookPage> {
     super.initState();
     searchController.addListener(onSearchChanged);
     getBookStream();
-    // BookController().calculateTotal();
   }
 
   onSearchChanged() {
@@ -34,8 +33,11 @@ class _BookPageState extends State<BookPage> {
     var showResult = [];
     if (searchController.text != "") {
       for (var bookSnapShot in allresults) {
+        var author = bookSnapShot['author'].toString().toLowerCase();
+        var category = bookSnapShot['category'].toString().toLowerCase();
         var title = bookSnapShot['Title'].toString().toLowerCase();
-        if (title.contains(searchController.text.toLowerCase())) {
+        var allsearch = author + category + title;
+        if (allsearch.contains(searchController.text.toLowerCase())) {
           showResult.add(bookSnapShot);
         }
       }
@@ -60,7 +62,12 @@ class _BookPageState extends State<BookPage> {
         .collection("/books/category/mystery")
         .orderBy('Title')
         .get();
-    var allDocs = [...data.docs, ...data2.docs, ...data3.docs];
+
+    var allDocs = [
+      ...data.docs,
+      ...data2.docs,
+      ...data3.docs,
+    ];
     setState(() {
       allresults = allDocs;
     });

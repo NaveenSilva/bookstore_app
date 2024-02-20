@@ -187,7 +187,7 @@ class _CartPageState extends State<CartPage> {
                   child: Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(PaymentPage(total: 2500));
+                        Get.to(PaymentPage(total: cartTotal));
                       },
                       child: const Text(
                         "Buy",
