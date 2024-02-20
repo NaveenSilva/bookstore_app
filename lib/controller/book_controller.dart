@@ -14,7 +14,6 @@ class BookController extends GetxController {
   late CollectionReference collectionReference3 =
       firebaseFirestore.collection("/books/category/historical novels");
 
-
   RxList<CartModel> cart = RxList<CartModel>([]);
   RxList<BookModel> book = RxList<BookModel>([]);
 
@@ -28,7 +27,9 @@ class BookController extends GetxController {
 
   void addToCart({String? docId, required String title, required int price}) {
     collectionReference.add({'Title': title, 'price': price, 'quantity': 1});
-    
+    //cartTotal = cartTotal + price;
+    update();
+    // print(cartTotal);
   }
 
   Stream<List<CartModel>> getAllItems() => collectionReference.snapshots().map(

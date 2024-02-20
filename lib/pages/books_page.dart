@@ -26,7 +26,6 @@ class _BookPageState extends State<BookPage> {
   }
 
   onSearchChanged() {
-    print(searchController.text);
     searchResultList();
   }
 
@@ -34,8 +33,11 @@ class _BookPageState extends State<BookPage> {
     var showResult = [];
     if (searchController.text != "") {
       for (var bookSnapShot in allresults) {
+        var author = bookSnapShot['author'].toString().toLowerCase();
+        var category = bookSnapShot['category'].toString().toLowerCase();
         var title = bookSnapShot['Title'].toString().toLowerCase();
-        if (title.contains(searchController.text.toLowerCase())) {
+        var allsearch = author + category + title;
+        if (allsearch.contains(searchController.text.toLowerCase())) {
           showResult.add(bookSnapShot);
         }
       }
@@ -60,7 +62,12 @@ class _BookPageState extends State<BookPage> {
         .collection("/books/category/mystery")
         .orderBy('Title')
         .get();
-    var allDocs = [...data.docs, ...data2.docs, ...data3.docs];
+
+    var allDocs = [
+      ...data.docs,
+      ...data2.docs,
+      ...data3.docs,
+    ];
     setState(() {
       allresults = allDocs;
     });
@@ -98,15 +105,16 @@ class _BookPageState extends State<BookPage> {
               motion: StretchMotion(),
               children: [
                 SlidableAction(
-                  backgroundColor: Colors.green,
-                  icon: Icons.delete,
-                  label: 'Add To Cart',
-                  onPressed: (context) => BookController().addToCart(
-                    title: resultList[index]['Title'],
-                    price: resultList[index]['price'],
-                    //docId: resultList[index]['docid'].toString(),
-                  ),
-                )
+                    backgroundColor: Colors.green,
+                    icon: Icons.delete,
+                    label: 'Add To Cart',
+                    onPressed: (context) {
+                      BookController().addToCart(
+                        title: resultList[index]['Title'],
+                        price: resultList[index]['price'],
+                        //docId: resultList[index]['docid'].toString(),
+                      );
+                    })
               ],
             ),
             child: Container(
@@ -143,6 +151,4 @@ class _BookPageState extends State<BookPage> {
       ),
     );
   }
-
-  
 }

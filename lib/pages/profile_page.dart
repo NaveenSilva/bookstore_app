@@ -19,8 +19,8 @@ class ProfilePage extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 50),
-              child: Icon(Icons.account_circle_outlined,
-                  size: size.width * 0.25),
+              child:
+                  Icon(Icons.account_circle_outlined, size: size.width * 0.25),
             ),
             const Text("Profile", style: TextStyle(fontSize: 25)),
             StreamBuilder<List<UserModel>>(
@@ -101,8 +101,10 @@ class ProfilePage extends StatelessWidget {
                               flex: 1,
                               child: Center(
                                 child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text("Update"),
+                                  onPressed: () {
+                                    
+                                  },
+                                  child: Text("Update User Name"),
                                 ),
                               ),
                             ),

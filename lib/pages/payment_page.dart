@@ -1,5 +1,7 @@
+import 'package:bookstore_app/controller/cart_controller.dart';
 import 'package:bookstore_app/pages/history_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get.dart';
 
 class PaymentPage extends StatelessWidget {
@@ -93,7 +95,7 @@ class PaymentPage extends StatelessWidget {
                         height: 50,
                         width: double.infinity,
                         color: Colors.amber,
-                        child: const Row(
+                        child: Row(
                           children: [
                             Expanded(
                               child: Center(
@@ -105,7 +107,7 @@ class PaymentPage extends StatelessWidget {
                             Expanded(
                               child: Center(
                                 child: Text(
-                                  "Total amount",
+                                  '${total.toString()}',
                                 ),
                               ),
                             ),
@@ -129,7 +131,8 @@ class PaymentPage extends StatelessWidget {
                           Expanded(
                             flex: 1,
                             child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                await CartController().transferData();
                                 Get.off(const HistoryPage());
                               },
                               child: Text(
