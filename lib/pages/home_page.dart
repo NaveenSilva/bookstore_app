@@ -11,265 +11,268 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 10),
-      child: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          Row(
-            children: [
-              const Expanded(
-                flex: 4,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    "Mystery",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.only(top: 20, left: 10),
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: [
+            Row(
+              children: [
+                const Expanded(
+                  flex: 4,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: Text(
+                      "Mystery",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    Get.to(BookPage());
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(BookPage());
+                    },
+                    child: const Text(
+                      "See More",
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const Divider(
+              color: Colors.grey,
+              thickness: 2,
+              height: 1,
+              indent: 20,
+              endIndent: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20, left: 20),
+              child: SizedBox(
+                height: 220,
+                child: StreamBuilder<List<BookModel>>(
+                  stream: BookController().getAllBooks(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error:${snapshot.error}');
+                    }
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    }
+                    List<BookModel> bookItems = snapshot.data!;
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: bookItems.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(BookPage());
+                          },
+                          child: Container(
+                            height: 200,
+                            width: 150,
+                            child: Column(
+                              children: [
+                                Image(
+                                  image: NetworkImage(
+                                    '${bookItems[index].image}',
+                                  ),
+                                  height: 150,
+                                  width: 150,
+                                ),
+                                Text('${bookItems[index].title}'),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
                   },
-                  child: const Text(
-                    "See More",
-                    style: TextStyle(color: Colors.blue),
-                  ),
                 ),
               ),
-            ],
-          ),
-          const Divider(
-            color: Colors.grey,
-            thickness: 2,
-            height: 1,
-            indent: 20,
-            endIndent: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20, left: 20),
-            child: SizedBox(
-              height: 220,
-              child: StreamBuilder<List<BookModel>>(
-                stream: BookController().getAllBooks(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Error:${snapshot.error}');
-                  }
-                  if (!snapshot.hasData) {
-                    return const CircularProgressIndicator();
-                  }
-                  List<BookModel> bookItems = snapshot.data!;
-                  return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: bookItems.length,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.to(BookPage());
-                        },
-                        child: Container(
-                          height: 200,
-                          width: 150,
-                          child: Column(
-                            children: [
-                              Image(
-                                image: NetworkImage(
-                                  '${bookItems[index].image}',
-                                ),
-                                height: 150,
-                                width: 150,
-                              ),
-                              Text('${bookItems[index].title}'),
-                            ],
-                          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                children: [
+                  const Expanded(
+                    flex: 3,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text(
+                        "Horror",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                  );
-                },
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Row(
-              children: [
-                const Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: Text(
-                      "Horror",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.to(BookPage());
-                    },
-                    child: const Text(
-                      "See More",
-                      style: TextStyle(
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Divider(
-            color: Colors.grey,
-            thickness: 2,
-            height: 1,
-            indent: 20,
-            endIndent: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20, left: 20),
-            child: SizedBox(
-              height: 220,
-              child: StreamBuilder<List<BookModel>>(
-                stream: BookController().getAllBooksHorror(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Error:${snapshot.error}');
-                  }
-                  if (!snapshot.hasData) {
-                    return const CircularProgressIndicator();
-                  }
-                  List<BookModel> bookItems1 = snapshot.data!;
-                  return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: bookItems1.length,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.to(BookPage());
-                        },
-                        child: Container(
-                          height: 200,
-                          width: 150,
-                          child: Column(
-                            children: [
-                              Image(
-                                image: NetworkImage(
-                                  '${bookItems1[index].image}',
-                                ),
-                                height: 150,
-                                width: 150,
-                              ),
-                              Text('${bookItems1[index].title}'),
-                            ],
-                          ),
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.to(BookPage());
+                      },
+                      child: const Text(
+                        "See More",
+                        style: TextStyle(
+                          color: Colors.blue,
                         ),
                       ),
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Row(
-              children: [
-                const Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: Text(
-                      "Historical Novels",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.to(BookPage());
-                    },
-                    child: const Text(
-                      "See More",
-                      style: TextStyle(
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            const Divider(
+              color: Colors.grey,
+              thickness: 2,
+              height: 1,
+              indent: 20,
+              endIndent: 20,
             ),
-          ),
-          const Divider(
-            color: Colors.grey,
-            thickness: 2,
-            height: 1,
-            indent: 20,
-            endIndent: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20, left: 20),
-            child: SizedBox(
-              height: 220,
-              child: StreamBuilder<List<BookModel>>(
-                stream: BookController().getAllBooksHisNov(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Error:${snapshot.error}');
-                  }
-                  if (!snapshot.hasData) {
-                    return const CircularProgressIndicator();
-                  }
-                  List<BookModel> bookItems = snapshot.data!;
-                  return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: bookItems.length,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.to(BookPage());
-                        },
-                        child: Container(
-                          height: 200,
-                          width: 150,
-                          child: Column(
-                            children: [
-                              Image(
-                                image: NetworkImage(
-                                  '${bookItems[index].image}',
+            Padding(
+              padding: const EdgeInsets.only(top: 20, left: 20),
+              child: SizedBox(
+                height: 220,
+                child: StreamBuilder<List<BookModel>>(
+                  stream: BookController().getAllBooksHorror(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error:${snapshot.error}');
+                    }
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    }
+                    List<BookModel> bookItems1 = snapshot.data!;
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: bookItems1.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(BookPage());
+                          },
+                          child: Container(
+                            height: 200,
+                            width: 150,
+                            child: Column(
+                              children: [
+                                Image(
+                                  image: NetworkImage(
+                                    '${bookItems1[index].image}',
+                                  ),
+                                  height: 150,
+                                  width: 150,
                                 ),
-                                height: 150,
-                                width: 150,
-                              ),
-                              Text('${bookItems[index].title}'),
-                            ],
+                                Text('${bookItems1[index].title}'),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                children: [
+                  const Expanded(
+                    flex: 3,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text(
+                        "Historical Novels",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.to(BookPage());
+                      },
+                      child: const Text(
+                        "See More",
+                        style: TextStyle(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              color: Colors.grey,
+              thickness: 2,
+              height: 1,
+              indent: 20,
+              endIndent: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20, left: 20),
+              child: SizedBox(
+                height: 220,
+                child: StreamBuilder<List<BookModel>>(
+                  stream: BookController().getAllBooksHisNov(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error:${snapshot.error}');
+                    }
+                    if (!snapshot.hasData) {
+                      return const CircularProgressIndicator();
+                    }
+                    List<BookModel> bookItems = snapshot.data!;
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: bookItems.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(BookPage());
+                          },
+                          child: Container(
+                            height: 200,
+                            width: 150,
+                            child: Column(
+                              children: [
+                                Image(
+                                  image: NetworkImage(
+                                    '${bookItems[index].image}',
+                                  ),
+                                  height: 150,
+                                  width: 150,
+                                ),
+                                Text('${bookItems[index].title}'),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

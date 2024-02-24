@@ -112,6 +112,8 @@ class _BookPageState extends State<BookPage> {
                       BookController().addToCart(
                         title: resultList[index]['Title'],
                         price: resultList[index]['price'],
+                        // itemTotal: resultList[index]['price'] *
+                        //     resultList[index]['quantity'],
                         //docId: resultList[index]['docid'].toString(),
                       );
                     })

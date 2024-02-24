@@ -1,7 +1,7 @@
 import 'package:bookstore_app/controller/cart_controller.dart';
 import 'package:bookstore_app/pages/history_page.dart';
+import 'package:bookstore_app/pages/landing_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get/get.dart';
 
 class PaymentPage extends StatelessWidget {
@@ -132,8 +132,8 @@ class PaymentPage extends StatelessWidget {
                             flex: 1,
                             child: ElevatedButton(
                               onPressed: () async {
-                                await CartController().transferData();
-                                Get.off(const HistoryPage());
+                               // await CartController().transferData();
+                                Get.off( LandingPage());
                               },
                               child: Text(
                                 "Pay",

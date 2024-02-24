@@ -26,10 +26,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.purple,
-      ),
+          primaryColor: Colors.blue,
+          navigationBarTheme:
+              const NavigationBarThemeData(shadowColor: Colors.blue)),
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Book Store',
       home: LandingPage(),
     );
   }

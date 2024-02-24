@@ -1,12 +1,15 @@
 import 'package:bookstore_app/model/book_model.dart';
 import 'package:bookstore_app/model/cart_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class BookController extends GetxController {
+  String? userId = FirebaseAuth.instance.currentUser?.uid;
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
   late CollectionReference collectionReference =
-      firebaseFirestore.collection("/cart/bZWB6s1ZzOGNokT9kuuI/a1");
+      firebaseFirestore.collection("/cart/bZWB6s1ZzOGNokT9kuuI/$userId");
   late CollectionReference collectionReference1 =
       firebaseFirestore.collection("/books/category/mystery");
   late CollectionReference collectionReference2 =
@@ -14,8 +17,13 @@ class BookController extends GetxController {
   late CollectionReference collectionReference3 =
       firebaseFirestore.collection("/books/category/historical novels");
 
+  int y = 0;
+  int cartTotal = 0;
+
   RxList<CartModel> cart = RxList<CartModel>([]);
   RxList<BookModel> book = RxList<BookModel>([]);
+
+  List<BookModel> cartItem = [];
 
   @override
   void onInit() {

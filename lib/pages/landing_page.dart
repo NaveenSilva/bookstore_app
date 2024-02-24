@@ -17,13 +17,21 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   int selectedItem = 0;
+
   final tab = [
     const HomePage(),
     const BookPage(),
     const CartPage(),
-     ProfilePage(),
+    ProfilePage(),
     const HistoryPage(),
   ];
+  void onItemTap(int index) {
+    setState(
+      () {
+        selectedItem = index;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +41,25 @@ class _LandingPageState extends State<LandingPage> {
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.black,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: ''),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.book,
+            ),
+            label: '',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.history), label: '')
         ],
         currentIndex: selectedItem,
         selectedItemColor: Colors.blue,
-        onTap: (int index) {
-          setState(() {
-            selectedItem = index;
-          });
-        },
+        onTap: onItemTap,
       ),
     );
   }

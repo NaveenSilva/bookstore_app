@@ -1,3 +1,5 @@
+import 'package:bookstore_app/controller/book_controller.dart';
+import 'package:bookstore_app/model/cart_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -5,40 +7,52 @@ import 'package:get/get.dart';
 class CartController extends GetxController {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   User? users = FirebaseAuth.instance.currentUser;
-
-  // late CollectionReference collectionReference4 =
-  //     firebaseFirestore.collection("/cart/bZWB6s1ZzOGNokT9kuuI/a1");
+  final bookController = Get.put(BookController());
+  Map<String, dynamic> allItems = {};
   String? userId = FirebaseAuth.instance.currentUser?.uid;
-  RxBool isLoading = true.obs;
 
-  Future<void> transferData() async {
+  //---------------------------------------------------------------------------------------------------
+
+  RxList<CartModel> cart = RxList<CartModel>([]);
+
+@override
+  void onInit() {
+    cart.bindStream(getAllBills());
+    getAllBills().listen((items) {});
+    super.onInit();
+  }
+  late CollectionReference collectionReference4 =
+      firebaseFirestore.collection("/cart/bZWB6s1ZzOGNokT9kuuI/$userId");
+
+  Future<void> createDataInFirebase(
+      int length, List bookTitles, List bookPrices, List bookQuantities) async {
     try {
-      isLoading.value = true;
-      QuerySnapshot<Map<String, dynamic>> cartSnapshot = await firebaseFirestore
-          .collection('/cart/bZWB6s1ZzOGNokT9kuuI/a1')
-          .get();
-
-      List<Map<String, dynamic>> cartData = [];
-      for (var doc in cartSnapshot.docs) {
-        Map<String, dynamic> data = {
-          'Title': doc['Title'],
-          'price': doc['price'],
-          'quantity': doc['quantity']
+      int billTotal = 0;
+      for (int x = 0; x < length; x++) {
+        allItems['item$x'] = {
+          'item$x': {
+            'Title': bookTitles[x],
+            'price': int.parse(bookPrices[x]),
+            'quantity': int.parse(bookQuantities[x]),
+          },
         };
-        cartData.add(data);
+        billTotal = bookController.cartTotal;
       }
 
-      cartData.forEach((data) async {
-        await firebaseFirestore
-            .collection('/order history/0oUrzD3W0t2tXPcvJ51o/a')
-            .add(data);
+      DocumentReference newDocRef = await FirebaseFirestore.instance
+          .collection('/order history/0oUrzD3W0t2tXPcvJ51o/$userId')
+          .add(allItems);
+      await newDocRef.update({
+        'total': billTotal,
+        'id': userId,
       });
 
-      isLoading.value = false;
-      print('Data transfer completed successfully.');
+      print('Data created successfully in Firestore.11111');
     } catch (error) {
-      isLoading.value = false;
-      print('Error transferring data: $error');
+      print('Error creating data in Firestore: $error');
     }
   }
+
+    Stream<List<CartModel>> getAllBills() => collectionReference4.snapshots().map(
+      (query) => query.docs.map((item) => CartModel.fromMap(item)).toList());
 }
