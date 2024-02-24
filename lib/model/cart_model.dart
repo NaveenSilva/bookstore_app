@@ -5,13 +5,12 @@ class CartModel {
   String? title;
   int? price;
   int? quantity;
-  //int? total;
 
   CartModel({
-    this.docId,
-    this.title,
-    this.price,
-    this.quantity,
+    required this.docId,
+    required this.title,
+    required this.price,
+    required this.quantity,
   });
 
   CartModel.fromMap(DocumentSnapshot data) {
