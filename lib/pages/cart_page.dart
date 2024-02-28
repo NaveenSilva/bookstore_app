@@ -248,7 +248,6 @@ class _CartPageState extends State<CartPage> {
                                     flex: 1,
                                     child: Text("(Swap Left to Remove Item)"),
                                   ),
-                                  Text(cartTotal.toString()),
                                 ],
                               ),
                             ),
@@ -274,8 +273,7 @@ class _CartPageState extends State<CartPage> {
                         //() =>
 
                         Text(
-                      "",
-                      //  bookController.cartTotal.value.toString(),
+                      bookController.cartTotal.value.toString(),
                       style: const TextStyle(
                         fontSize: 25,
                       ),
