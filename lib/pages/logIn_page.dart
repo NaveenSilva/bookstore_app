@@ -32,7 +32,6 @@ class _LogInPageState extends State<LogInPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        //appBar: AppBar(title: Text("Log In")),
         body: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

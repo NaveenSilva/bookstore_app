@@ -18,7 +18,7 @@ class BookController extends GetxController {
       firebaseFirestore.collection("/books/category/historical novels");
 
   int y = 0;
-  int cartTotal = 0;
+  RxInt cartTotal = 0.obs;
 
   RxList<CartModel> cart = RxList<CartModel>([]);
   RxList<BookModel> book = RxList<BookModel>([]);
@@ -30,12 +30,13 @@ class BookController extends GetxController {
     super.onInit();
     cart.bindStream(getAllItems());
     book.bindStream(getAllBooks());
-    getAllItems().listen((items) {});
   }
 
   void addToCart({String? docId, required String title, required int price}) {
     collectionReference.add({'Title': title, 'price': price, 'quantity': 1});
-    //cartTotal = cartTotal + price;
+    //print(userId);
+    // cartTotal.value += price;
+    updateCartTotal();
     update();
     // print(cartTotal);
   }
@@ -65,6 +66,7 @@ class BookController extends GetxController {
 
       currentQuantity++;
       updateQuantity(docId, currentQuantity);
+       updateCartTotal();
       update();
     }
   }
@@ -76,12 +78,20 @@ class BookController extends GetxController {
       if (currentQuantity > 1) {
         currentQuantity--;
         updateQuantity(docId, currentQuantity);
+        updateCartTotal();
         update();
       }
     }
   }
+  void updateCartTotal() {
+  cartTotal.value = cart.fold(0, (sum, item) => sum + (item.quantity! * item.price!));
+}
+void updateCartTotal1(List<CartModel> cartItems) {
+  cartTotal.value = cartItems.fold(0, (sum, item) => sum + (item.quantity! * item.price!));
+}
 
   DismissedItem(String docId) {
     collectionReference.doc(docId).delete();
+    updateCartTotal();
   }
 }

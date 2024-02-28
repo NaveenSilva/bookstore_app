@@ -22,7 +22,7 @@ class _LandingPageState extends State<LandingPage> {
     const HomePage(),
     const BookPage(),
     const CartPage(),
-    ProfilePage(),
+    const ProfilePage(),
     const HistoryPage(),
   ];
   void onItemTap(int index) {

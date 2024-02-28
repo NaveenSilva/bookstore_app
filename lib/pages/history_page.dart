@@ -38,6 +38,7 @@ class HistoryPage extends StatelessWidget {
                 ],
               ),
             ),
+            Text("Items"),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -58,17 +59,15 @@ class HistoryPage extends StatelessWidget {
                     }
                     List<CartModel> cartItems = snapshot.data!;
 
-                    // Populate bookTitles list
                     bookTitles =
                         cartItems.map((item) => item.title ?? "").toList();
 
                     return ListView.builder(
                       itemCount: cartItems.length,
                       itemBuilder: (context, index) {
-                        print(cartItems[1].title);
+                        print(cartItems[index].title);
                         return Column(
                           children: [
-                            Text("Item"),
                             Column(
                               children: [
                                 Row(
