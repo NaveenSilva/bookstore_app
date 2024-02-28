@@ -36,7 +36,7 @@ class CartController extends GetxController {
             'quantity': int.parse(bookQuantities[x]),
           },
         };
-        billTotal = bookController.cartTotal;
+       // billTotal = bookController.cartTotal;
       }
 
       DocumentReference newDocRef = await FirebaseFirestore.instance
